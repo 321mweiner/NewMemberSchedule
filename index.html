@@ -1,0 +1,76 @@
+<!doctype html>
+<head>
+    <meta charset = utf-8>
+    <title>New Member Schedule</title>
+
+    <script>
+        const members =[
+            {
+                name : "John Doe",
+                availability : [
+                    [[100,200],[500,600]],
+                    [],
+                    [],
+                    [],
+                    []
+                ]
+            },
+            {
+                name : "John Doe 2",
+                availability : [
+                    [[100,200],[500,600]],
+                    [],
+                    [],
+                    [],
+                    []
+                ]
+            },
+
+        ];
+        function availability(day,time){
+            outputArray = Array()
+
+            for(let i = 0; i < members.length; i++){
+
+                var dailyAvailability = members[i].availability[day];
+
+                for(let j = 0; j < dailyAvailability.length; j++){
+                    if(time > dailyAvailability[j][0] && time < dailyAvailability[j][1]){
+                        outputArray.add(members[i].name);
+                        break;
+                    }
+
+                }
+            }
+
+            return outputArray;
+        }
+
+        function execute(){
+            var select = document.getElementById("day");
+            var day = select.options[select.selectedIndex].value;
+            var hour = document.getElementById("hour").value; 
+            var min = document.getElementById("min").value; 
+
+
+
+            document.getElementById("out").innerHTML = availability(day,100*hour + min);
+        }
+
+    </script>
+</head>
+<body>
+    <p>New Member Availability:</p>
+    <select id = "day" name="day">
+        <option value = "0" selected>Monday</option>
+        <option value = "1">Tuesday</option>
+        <option value = "2">Wednesday</option>
+        <option value = "3">Thursday</option>
+        <option value = "4">Friday</option>
+    </select>
+    <input type = "hour" id = "hour" class ="form-control" placeholder="Hour">
+    <input type = "minute" id = "min" class ="form-control" placeholder="Minute">
+    <input type="submit" value = submit class="btn btn-primary btn-block" onclick = "execute()">
+
+    <p id = "out">Test</p>
+</body>
