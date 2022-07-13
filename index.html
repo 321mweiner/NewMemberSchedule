@@ -35,6 +35,7 @@
             // A string that will store the names of available people
             var outputString = "|";
 
+            console.log(day);
             console.log(time);
 
             //iterates through each member 
@@ -43,6 +44,7 @@
                 //an array containing intervals that members are available during the selected day
                 var dailyAvailability = members[i].availability[day];
 
+                
                 //iterates through each interval
                 for(let j = 0; j < dailyAvailability.length; j++){
                     //checks if the time falls within the specified interval
