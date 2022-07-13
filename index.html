@@ -4,21 +4,24 @@
     <title>New Member Schedule</title>
 
     <script>
+        //variable containing member information
         const members =[
             {
+                //name of the member
                 name : "John Doe",
-                availability : [
-                    [[100,200],[500,600]],
-                    [],
-                    [],
-                    [],
-                    []
+                //availability of the member throughout the week
+                availability : [ 
+                    [[1000,1100],[1400,1500]], //Monday
+                    [], //Tuesday
+                    [], //Wednesday
+                    [], //Thursday
+                    [] //Friday
                 ]
             },
             {
                 name : "John Doe 2",
                 availability : [
-                    [[100,200],[500,600]],
+                    [[1000,1100],[1400,1500]],
                     [],
                     [],
                     [],
@@ -27,40 +30,54 @@
             },
 
         ];
+
         function availability(day,time){
-            outputArray = Array()
+            // A string that will store the names of available people
+            var outputString = "|";
 
+            console.log(time);
+
+            //iterates through each member 
             for(let i = 0; i < members.length; i++){
-
+                
+                //an array containing intervals that members are available during the selected day
                 var dailyAvailability = members[i].availability[day];
 
+                //iterates through each interval
                 for(let j = 0; j < dailyAvailability.length; j++){
-                    if(time > dailyAvailability[j][0] && time < dailyAvailability[j][1]){
-                        outputArray.add(members[i].name);
+                    //checks if the time falls within the specified interval
+                    if(time >= dailyAvailability[j][0] && time <= dailyAvailability[j][1]){
+
+                        console.log(dailyAvailability[j][0]);
+
+                        console.log(dailyAvailability[j][1]);
+
+                        //adds the name of the member to the output string if they are available
+                        outputString = outputString + members[i].name + " | ";
                         break;
                     }
-
                 }
             }
+            
 
-            return outputArray;
+            return outputString.toString();
         }
 
         function execute(){
             var select = document.getElementById("day");
             var day = select.options[select.selectedIndex].value;
-            var hour = document.getElementById("hour").value; 
-            var min = document.getElementById("min").value; 
+            var hour = document.getElementById("hour").value;  
 
 
-
-            document.getElementById("out").innerHTML = availability(day,100*hour + min);
+            document.getElementById("out").innerHTML = availability(day,hour);
         }
 
     </script>
 </head>
 <body>
     <p>New Member Availability:</p>
+
+    <!-- Dropdown menu to select what day it is -->
     <select id = "day" name="day">
         <option value = "0" selected>Monday</option>
         <option value = "1">Tuesday</option>
@@ -68,9 +85,13 @@
         <option value = "3">Thursday</option>
         <option value = "4">Friday</option>
     </select>
-    <input type = "hour" id = "hour" class ="form-control" placeholder="Hour">
-    <input type = "minute" id = "min" class ="form-control" placeholder="Minute">
+
+    <!-- Input box for time -->
+    <input type = "hour" id = "hour" class ="form-control" placeholder="4 Digit Military Time">
+
+    <!-- Submit button, calls execute function in Javascript above -->
     <input type="submit" value = submit class="btn btn-primary btn-block" onclick = "execute()">
 
+    <!-- Paragraph tag where the output of the function call is displayed -->
     <p id = "out">Test</p>
 </body>
